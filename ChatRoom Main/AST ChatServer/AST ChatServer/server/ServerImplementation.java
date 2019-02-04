@@ -40,7 +40,26 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 		return true;										//true for successful disconnection.
 	}
 	
-	
+	@Override
+	/** Publish the message to all users in the chatroom and to the server's black screen.
+	 * @param message The message to send. */
+	public void publish( String message) throws RemoteException{
+		System.out.println( message);			//This will write the message to the server's black screen.
+		
+		for( int i=0; i<vector.size(); i++){	//Send to all users
+			try{
+				ClientInterface clientInterface=vector.get( i);
+				clientInterface.sendMessageToClient( message);
+			}catch( Exception exception){
+				exception.printStackTrace();
+			}
+		}
+	}
 
+	@Override
+	/** Get all clients connected to the chatroom.*/
+	public Vector<ClientInterface> getConnectedClients() throws RemoteException{
+		return vector;
+	}
 	
 }
