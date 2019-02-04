@@ -40,6 +40,8 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 		return true;										//true for successful disconnection.
 	}
 	
+	//need 2 more methods here
+	
 	
 
 	
