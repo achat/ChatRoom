@@ -1,5 +1,4 @@
 package client;
-//my first commit
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -8,6 +7,7 @@ import chatroominterface.ClientInterface;
 
 public class ClientImplementation extends UnicastRemoteObject implements ClientInterface{
 	private String name;
+	private ClientUserInterface clientUserInterface;
 
 	/** 
 	 * @param name Client's name. */
@@ -18,6 +18,8 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
 	@Override
 	public void sendMessageToClient( String message) throws RemoteException{
 		System.out.println( message);				//to client's console
+		if (clientUserInterface!=null)
+			clientUserInterface.writeMessage( message);	//to client's UI
 	}
 
 	@Override
@@ -25,4 +27,7 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
 		return name;
 	}
 
+	public void setGUI( ClientUserInterface clientUserInterface){
+		this.clientUserInterface=clientUserInterface;
+	}
 }
