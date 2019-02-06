@@ -2,13 +2,14 @@ package client;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Vector;
 
 import chatroominterface.ClientInterface;
 
 public class ClientImplementation extends UnicastRemoteObject implements ClientInterface{
 	private String name;
-	ClientUserInterface clientUserInterface;
-	
+	private ClientUserInterface clientUserInterface;
+
 	/** 
 	 * @param name Client's name. */
 	public ClientImplementation( String name) throws RemoteException{
@@ -17,7 +18,9 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
 
 	@Override
 	public void sendMessageToClient( String message) throws RemoteException{
-		System.out.println( message);				//to client's console
+		System.out.println( message);					//to client's console
+		if (clientUserInterface!=null)
+			clientUserInterface.writeMessage( message);	//to client's UI
 	}
 
 	@Override
@@ -25,9 +28,12 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
 		return name;
 	}
 	
-	//Do not add @Override here.
 	public void setGUI( ClientUserInterface clientUserInterface){
 		this.clientUserInterface=clientUserInterface;
 	}
-	
+
+	@Override
+	public void updateConnectedUsersList(Vector<ClientInterface> vector) throws RemoteException{
+		clientUserInterface.updateConnectedUsersList( vector);
+	}
 }
