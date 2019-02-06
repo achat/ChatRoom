@@ -13,7 +13,10 @@ public class Client{
 	private ClientImplementation clientImplementation;
 	private String name;
 	
-	 /** This will create a conflict*/
+	/** The class constructor is used once when the user chooses a non-GUI approach.
+	 * 	It gets the server's ip, the user name and searches for the remote item/service "Chatroom"
+	 *  in the server's registry for the given ip.
+	 *  Then the user gets logged in to the server. */
 	public Client(){
 		String ip;
 		Scanner scanner=new Scanner(System.in);
@@ -28,6 +31,7 @@ public class Client{
 			clientImplementation=new ClientImplementation(name);
 			serverInterface=( ServerInterface) Naming.lookup( "rmi://"+ip+"/Chatroom");
 			serverInterface.login( clientImplementation);	//try to connect to chatroom.
+			//System.out.println("[System] Connected to the chatroom.");
 		}catch( RemoteException | MalformedURLException | NotBoundException exception){
 			exception.printStackTrace();
 		}
@@ -35,12 +39,43 @@ public class Client{
 	}
 	
 	public static void main( String...args){
+		String answer;
+		
 		System.out.println("[System] Client is running.");
+		System.out.println("[System] Would you like to load G.U.I.? (y/n)");
+		answer=getUserAnswer();
 
-		Client client=new Client();
-		client.startCommunication();		
+		if(answer.equalsIgnoreCase("n") ){
+		System.out.println("Loading C.M.D...");
+			Client client=new Client();
+			client.startCommunication();
+		 }else{
+			System.out.println("Loading G.U.I...");
+			new ClientUserInterface();
+		 }		
+		
 	}
 	
+	/** Get the user's choice on GUI loading.
+	 *  The asking process loops until the user provides a satisfying answer. */
+	private static String getUserAnswer(){
+		String answer;
+		Scanner scanner=new Scanner(System.in);		
+		boolean correctAnswer=false;
+		
+		do{
+			answer=scanner.nextLine();
+			if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("n")  ) correctAnswer=true;
+			else
+				System.out.println(" Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
+		}while( !correctAnswer );
+		
+		return answer;
+	}
+	
+	/** This method is used when GUI is not loaded.
+	 * It is used to read the user messages and to publish them.
+	 * It also terminates the program execution when the user messages equals "/terminate" */
 	private void startCommunication(){
 		Scanner scanner=new Scanner(System.in);
 		String message;
