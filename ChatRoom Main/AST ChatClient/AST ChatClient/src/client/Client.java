@@ -13,6 +13,7 @@ public class Client{
 	private ClientImplementation clientImplementation;
 	private String name;
 	
+	 /** This will create a conflict*/
 	public Client(){
 		String ip;
 		Scanner scanner=new Scanner(System.in);
