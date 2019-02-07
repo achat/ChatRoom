@@ -26,10 +26,10 @@ public class Server{
 			answer=getAdminAnswer(scanner);
 
 			if(answer.equalsIgnoreCase("n") ){
-				System.out.println("Skipping Database activation...");
+				System.out.println("[System] Skipping Database activation...");
 				serverDatabase=null;
 			 }else{
-				System.out.println("Activating Database...");
+				System.out.println("[System] Activating Database...");
 				//Create a database reference that will connect to the Oracle Database.
 				serverDatabase=new ServerDatabase();
 			 }	
@@ -55,16 +55,17 @@ public class Server{
 	}
 	
 	/** Get the admin's choice on DataBase loading.
-	 *  The asking process loops until the user provides a satisfying answer. */
+	 *  The asking process loops until the user provides a satisfying answer.
+	 *  @param scanner The scanner used to read the admin's answer. */
 	private static String getAdminAnswer(Scanner scanner){
 		String answer;	
 		boolean correctAnswer=false;
 		
-		do{
+		do{ //Persist till correct answer given.
 			answer=scanner.nextLine();
 			if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("n")  ) correctAnswer=true;
 			else
-				System.out.println(" Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
+				System.out.println("[System] Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
 		}while( !correctAnswer );
 		
 		return answer;

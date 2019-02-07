@@ -92,7 +92,9 @@ public class ServerDatabase{
 	
 	/** Update the Logs table in the Database according to the operation performed by the client.
   	Each operation stores the ip, day of year, hour of day, type of operation and the counter value.
-  	@param operation The type of operation performed. (Increased/Decreased/Read) */
+  	@param operation The type of operation performed. (Increased/Decreased/Read)
+  	@param clientIP The IP of the client. 
+  	@param clientName the name of the client. */
 	public synchronized void updateLogsTable(String operation, String clientIP, String clientName){
 		System.out.println("[System] IP of "+clientName+": "+clientIP );	//Print client's ip.
 		//System.out.println("[System] Client's name: "+clientName );

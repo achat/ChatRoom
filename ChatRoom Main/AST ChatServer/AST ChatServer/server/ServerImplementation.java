@@ -12,6 +12,9 @@ import java.util.Vector;
 import chatroominterface.ClientInterface;
 import chatroominterface.ServerInterface;
 
+/** This class manages the implementation of the server as a rmi object that will
+ *  be bound to the server's registry. It handles operations suck as login, logout,
+ *  Database updates, GUI update signals,  */
 public class ServerImplementation extends UnicastRemoteObject implements ServerInterface{
 	private Vector<ClientInterface> vector=new Vector<ClientInterface>();	//A vector that holds connected clients.
 	private ServerDatabase serverDatabase;
@@ -21,7 +24,8 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 	} 	
 	
 	@Override
-	/** The Client uses this method to connect to the server. */
+	/** The Client uses this method to connect to the server.
+	 * @param clientInterface The client who tries to login. */
 	public boolean login( ClientInterface clientInterface) throws RemoteException{
 	
 		//Inform client for successful connection.
@@ -39,7 +43,8 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 	}
 
 	@Override
-	/** The Client uses this method to connect to the server. */
+	/** The Client uses this method to connect to the server.
+	 *  @param clientInterface The client who tries to logout. */
 	public boolean logout( ClientInterface clientInterface) throws RemoteException{
 		
 		//Inform client for successful disconnection.
