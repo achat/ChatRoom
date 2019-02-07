@@ -34,6 +34,7 @@ public class ClientImplementation extends UnicastRemoteObject implements ClientI
 
 	@Override
 	public void updateConnectedUsersList(Vector<ClientInterface> vector) throws RemoteException{
-		clientUserInterface.updateConnectedUsersList( vector);
+		if (clientUserInterface!=null)
+			clientUserInterface.updateConnectedUsersList( vector);
 	}
 }
