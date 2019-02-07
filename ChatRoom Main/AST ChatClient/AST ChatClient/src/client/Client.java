@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import chatroominterface.ServerInterface;
 
+/** This is the main Client class which executes the client program. 
+ *  Here the user is given the choice between a CMD and a GUI approach. */
 public class Client{
 	private static ServerInterface serverInterface;
 	private ClientImplementation clientImplementation;
@@ -46,11 +48,11 @@ public class Client{
 		answer=getUserAnswer();
 
 		if(answer.equalsIgnoreCase("n") ){
-		System.out.println("Loading C.M.D...");
+		System.out.println("[System] Loading C.M.D...");
 			Client client=new Client();
 			client.startCommunication();
 		 }else{
-			System.out.println("Loading G.U.I...");
+			System.out.println("[System] Loading G.U.I...");
 			new ClientUserInterface();
 		 }		
 		
@@ -67,7 +69,7 @@ public class Client{
 			answer=scanner.nextLine();
 			if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("n")  ) correctAnswer=true;
 			else
-				System.out.println(" Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
+				System.out.println("[System] Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
 		}while( !correctAnswer );
 		
 		return answer;

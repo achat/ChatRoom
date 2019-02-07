@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import chatroominterface.ClientInterface;
 import chatroominterface.ServerInterface;
 
-/** User Interface code. */
+/** User Interface code. Everything related to the GUI and the Logic behind it. */
 public class ClientUserInterface{
 	private ClientImplementation clientImplementation;
 	private ServerInterface serverInterface;
@@ -34,6 +34,7 @@ public class ClientUserInterface{
 	JList<String> jList;		//this is the list on the right that contains the users connected to the chatroom
 	JFrame jFrame;
 	
+	/** The constructor is used to set up the GUI and the action Listeners behind the GUI elements. */
 	public ClientUserInterface(){
 		jFrame=new JFrame( "Chatroom");
 		JPanel panelMain=new JPanel();
