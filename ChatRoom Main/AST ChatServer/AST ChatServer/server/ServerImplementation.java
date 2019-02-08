@@ -16,6 +16,7 @@ import chatroominterface.ServerInterface;
  *  be bound to the server's registry. It handles operations suck as login, logout,
  *  Database updates, GUI update signals,  */
 public class ServerImplementation extends UnicastRemoteObject implements ServerInterface{
+	//In contrast to arrays, the size of a vector can mutate dynamically during run time when adding elements.
 	private Vector<ClientInterface> vector=new Vector<ClientInterface>();	//A vector that holds connected clients.
 	private ServerDatabase serverDatabase;
 	

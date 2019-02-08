@@ -18,6 +18,7 @@ public class ServerDatabase{
 	
 	public ServerDatabase(){
 		connectToDatabase();
+		//TODO Implement another table that hold user messages.
 	}
 	
 	/** Establish a JDBC Connection to the Oracle Database.

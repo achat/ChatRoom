@@ -42,7 +42,7 @@ public class Client{
 	
 	public static void main( String...args){
 		String answer;
-		
+		//TODO Transfer some Client code to ClientImplementation.
 		System.out.println("[System] Client is running.");
 		System.out.println("[System] Would you like to load G.U.I.? (y/n)");
 		answer=getUserAnswer();

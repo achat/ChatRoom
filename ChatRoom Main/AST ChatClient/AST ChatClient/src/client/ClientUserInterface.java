@@ -101,6 +101,7 @@ public class ClientUserInterface{
 		jFrame.setContentPane( panelMain);
 		jFrame.setSize( 600, 600);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Terminate program when "X" is pressed.
+		//TODO: Logout when "X" is pressed.
 		jFrame.setLocationRelativeTo(null);						//Place the frame to the screen's center.
 		jFrame.setVisible( true);
 	}	
@@ -111,6 +112,7 @@ public class ClientUserInterface{
 	 *  When action to disconnect, logs out and updates the connected users list. */
 	public void doConnect(){
 		if( connectionButton.getText().equals( "Connect") ){
+			//TODO More rigid name and IP length tests.
 			if( nameTextField.getText().length()<2){			//Do not accept names with 1 or less characters.
 				JOptionPane.showMessageDialog( jFrame, "You need to type a name with more than 1 characters.");
 				return;
@@ -152,7 +154,7 @@ public class ClientUserInterface{
 			JOptionPane.showMessageDialog( jFrame, "You need to connect first.");
 			return;
 		}
-		
+		//TODO Should not be able to send message when text is empty.
 		String message=messageTextfield.getText();				//get message from textField.
 		message="["+nameTextField.getText()+"] "+message; 		//add the user's name.
 		messageTextfield.setText( "");							//set textField to empy again.
