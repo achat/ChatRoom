@@ -130,7 +130,7 @@ public class ClientUserInterface{
 				serverInterface=( ServerInterface) Naming.lookup( "rmi://"+ipTextField.getText()+"/Chatroom");
 				serverInterface.login( clientImplementation);	//try to connect to chatroom.
 				
-				updateConnectedUsersList( serverInterface.getConnectedClients() ); //add client to clients list.
+				updateConnectedUsersList( ( Vector<ClientInterface>) serverInterface.getConnectedClients() ); //add client to clients list.
 				connectionButton.setText( "Disconnect");		//change button label to Disconnect.
 			}catch( Exception exception){
 				exception.printStackTrace();
@@ -175,12 +175,12 @@ public class ClientUserInterface{
 	/** This method updates the user names shown on the right of the UI.
 	 *  The names refer to the users connected to the chatroom.
 	 *  @param vector The users connected to the chatroom according to the server. */
-	public void updateConnectedUsersList( Vector<?> vector){
+	public void updateConnectedUsersList( Vector<ClientInterface> vector){
 		DefaultListModel<String> connectedUsersList=new DefaultListModel<String>();
 
 		if( vector!=null) for( int i=0; i<vector.size(); i++){
 			try{
-				String userName=( ( ClientInterface) vector.get( i) ).getName();
+				String userName=vector.get( i).getName();
 				connectedUsersList.addElement( userName);
 			}catch( Exception exception){
 				exception.printStackTrace();

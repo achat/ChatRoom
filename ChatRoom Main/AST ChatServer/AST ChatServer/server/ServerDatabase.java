@@ -70,7 +70,7 @@ public class ServerDatabase{
 		
 		//Table does not exist. Then create it.
 		statement.execute( "CREATE TABLE chatroom_logs (id NUMBER(10) NOT NULL, ip VARCHAR2(16) NOT NULL,"
-				+ " name VARCHAR2(16) NOT NULL, day NUMBER(10) NOT NULL, hour NUMBER(10) NOT NULL,"
+				+ " name VARCHAR2(25) NOT NULL, day NUMBER(10) NOT NULL, hour NUMBER(10) NOT NULL,"
 				+ " operation VARCHAR2(16) NOT NULL, PRIMARY KEY(id) ) ");		
 		System.out.println("[System] Table chatroom_logs created.");
 	}
