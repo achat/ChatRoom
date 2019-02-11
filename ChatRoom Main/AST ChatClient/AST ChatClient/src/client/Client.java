@@ -23,11 +23,11 @@ public class Client{
 		String ip;
 		Scanner scanner=new Scanner(System.in);
 		
-		System.out.println("[System] Enter server's ip:");
-		ip=scanner.nextLine();
-		
 		System.out.println("[System] Enter your name:");
 		name=scanner.nextLine();
+
+		System.out.println("[System] Enter server's ip:");
+		ip=scanner.nextLine();
 		
 		try{
 			clientImplementation=new ClientImplementation(name);
@@ -37,18 +37,18 @@ public class Client{
 		}catch( RemoteException | MalformedURLException | NotBoundException exception){
 			exception.printStackTrace();
 		}
-		
+		scanner.close();
 	}
 	
 	public static void main( String...args){
 		String answer;
-		//TODO Transfer some Client code to ClientImplementation.
+		//TODO Transfer some Client code to ClientImplementation class.
 		System.out.println("[System] Client is running.");
 		System.out.println("[System] Would you like to load G.U.I.? (y/n)");
 		answer=getUserAnswer();
 
 		if(answer.equalsIgnoreCase("n") ){
-		System.out.println("[System] Loading C.M.D...");
+		System.out.println("[System] Continuing in C.M.D...");
 			Client client=new Client();
 			client.startCommunication();
 		 }else{
@@ -71,7 +71,7 @@ public class Client{
 			else
 				System.out.println("[System] Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
 		}while( !correctAnswer );
-		
+		scanner.close();
 		return answer;
 	}
 	
@@ -88,7 +88,7 @@ public class Client{
 			try{
 				if(message.equals( "/terminate") ){
 					serverInterface.logout( clientImplementation);
-					System.exit(0);	//terminate program execution when loging out of the chatroom.
+					System.exit(0);	//terminate program execution when logging out of the Chatroom.
 				}else
 					serverInterface.publish("["+name+"] "+ message);
 			}catch( RemoteException remoteException){
