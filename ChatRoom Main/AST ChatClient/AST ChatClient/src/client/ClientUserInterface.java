@@ -25,14 +25,15 @@ import chatroominterface.ServerInterface;
 
 /** User Interface code. Everything related to the GUI and the Logic behind it. */
 public class ClientUserInterface{
+	private static final String CONNECT="Connect";
 	private ClientImplementation clientImplementation;
 	private ServerInterface serverInterface;
 	
-	JTextArea jTextArea;
-	JTextField messageTextfield, ipTextField, nameTextField;
-	JButton connectionButton;	//Connect/Disconnect Button
-	JList<String> jList;		//this is the list on the right that contains the users connected to the chatroom
-	JFrame jFrame;
+	private JTextArea jTextArea;
+	private JTextField messageTextfield, ipTextField, nameTextField;
+	private JButton connectionButton;	//Connect/Disconnect Button
+	private JList<String> jList;		//this is the list on the right that contains the users connected to the chatroom
+	private JFrame jFrame;
 	
 	/** The constructor is used to set up the GUI and the action Listeners behind the GUI elements. */
 	public ClientUserInterface(){
@@ -47,9 +48,9 @@ public class ClientUserInterface{
 		nameTextField=new JTextField();
 		
 		jTextArea=new JTextArea();
-		connectionButton=new JButton( "Connect");
+		connectionButton=new JButton( CONNECT);
 		JButton sendButton=new JButton( "Send");
-		jList=new JList<String>();
+		jList=new JList<>();
 		
 		panelMain.setLayout( new BorderLayout( 5, 5) );
 		panelTop.setLayout( new GridLayout( 1, 0, 5, 5) );
@@ -111,7 +112,7 @@ public class ClientUserInterface{
 	 *  logs in and updates the connected users list.
 	 *  When action to disconnect, logs out and updates the connected users list. */
 	public void doConnect(){
-		if( connectionButton.getText().equals( "Connect") ){
+		if( connectionButton.getText().equals( CONNECT) ){
 			//TODO More rigid name and IP length tests.
 			if( nameTextField.getText().length()<2){			//Do not accept names with 1 or less characters.
 				JOptionPane.showMessageDialog( jFrame, "You need to type a name with more than 1 characters.");
@@ -130,7 +131,7 @@ public class ClientUserInterface{
 				serverInterface=( ServerInterface) Naming.lookup( "rmi://"+ipTextField.getText()+"/Chatroom");
 				serverInterface.login( clientImplementation);	//try to connect to chatroom.
 				
-				updateConnectedUsersList( ( Vector<ClientInterface>) serverInterface.getConnectedClients() ); //add client to clients list.
+				updateConnectedUsersList( serverInterface.getConnectedClients() ); //add client to clients list.
 				connectionButton.setText( "Disconnect");		//change button label to Disconnect.
 			}catch( Exception exception){
 				exception.printStackTrace();
@@ -143,14 +144,14 @@ public class ClientUserInterface{
 				exception.printStackTrace();
 			}	
 			updateConnectedUsersList( null);
-			connectionButton.setText( "Connect");
+			connectionButton.setText( CONNECT);
 		}
 	}
 
 	/** The actual method to send the message written in the textArea.
 	 * 	Checks if user connected, removes the text form the textArea, concatenates the user name and sends it. */
 	public void sendText(){
-		if( connectionButton.getText().equals( "Connect") ){ 		//Can not send message unless first connected.
+		if( connectionButton.getText().equals( CONNECT) ){ 		//Can not send message unless first connected.
 			JOptionPane.showMessageDialog( jFrame, "You need to connect first.");
 			return;
 		}

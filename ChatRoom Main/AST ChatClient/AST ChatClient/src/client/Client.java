@@ -21,7 +21,7 @@ public class Client{
 	 *  Then the user gets logged in to the server. */
 	public Client(){
 		String ip;
-		Scanner scanner=new Scanner(System.in);
+		Scanner scanner=new Scanner(System.in);	//Do not close the scanner.
 		
 		System.out.println("[System] Enter your name:");
 		name=scanner.nextLine();
@@ -33,11 +33,9 @@ public class Client{
 			clientImplementation=new ClientImplementation(name);
 			serverInterface=( ServerInterface) Naming.lookup( "rmi://"+ip+"/Chatroom");
 			serverInterface.login( clientImplementation);	//try to connect to chatroom.
-			//System.out.println("[System] Connected to the chatroom.");
 		}catch( RemoteException | MalformedURLException | NotBoundException exception){
 			exception.printStackTrace();
 		}
-		scanner.close();
 	}
 	
 	public static void main( String...args){
@@ -62,7 +60,7 @@ public class Client{
 	 *  The asking process loops until the user provides a satisfying answer. */
 	private static String getUserAnswer(){
 		String answer;
-		Scanner scanner=new Scanner(System.in);		
+		Scanner scanner=new Scanner(System.in);			//Do not close the scanner.
 		boolean correctAnswer=false;
 		
 		do{
@@ -71,7 +69,6 @@ public class Client{
 			else
 				System.out.println("[System] Incorrect answer. Please answer (\"y\" for YES or \"n\" for NO)");
 		}while( !correctAnswer );
-		scanner.close();
 		return answer;
 	}
 	

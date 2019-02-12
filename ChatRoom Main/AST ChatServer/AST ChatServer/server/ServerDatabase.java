@@ -11,7 +11,6 @@ import java.util.Calendar;
 /** This class manages the connection to the database and performs all the
  * database related actions. We are using an Oracle Database. */
 public class ServerDatabase{
-	private Calendar calendar;										//For keeping time logs.
 	private Connection connection=null; 							//Connection to Database.
 	private Statement statement=null;								//The SQL statement to execute.
 	private static int id;											//The primary key in the table chatroom_logs.
@@ -42,8 +41,6 @@ public class ServerDatabase{
 			createLogsTable();
 			
 			System.out.println("[System] Database is ready.");
-			//statement.close();
-			//connection.close();
 		}catch( ClassNotFoundException | SQLException exception){
 			exception.printStackTrace();
 		}
@@ -80,7 +77,7 @@ public class ServerDatabase{
 	 *  i.e. sqlStatement="SELECT MAX(id) AS max_id FROM charoom_logs" and reference="max_id".
 	 * @param sqlStatement The SQL Statement to execute.
 	 * @param reference The variable who's value should be returned. */
-	private int getValue(String sqlStatement,String reference) throws SQLException{
+	private int getValue(String sqlStatement, String reference) throws SQLException{
 		int value=0;
 		
 		PreparedStatement preparedStatement=connection.prepareStatement( sqlStatement);
@@ -98,14 +95,9 @@ public class ServerDatabase{
   	@param clientName the name of the client. */
 	public synchronized void updateLogsTable(String operation, String clientIP, String clientName){
 		System.out.println("[System] IP of "+clientName+": "+clientIP );	//Print client's ip.
-		//System.out.println("[System] Client's name: "+clientName );
 		
-		calendar=Calendar.getInstance();
-		int day=calendar.get( Calendar.DAY_OF_YEAR);
-		int hour=calendar.get( Calendar.HOUR_OF_DAY);			
-				
-		//System.out.println("[System] Day of year: "+ day );
-		//System.out.println("[System] Hour of day: "+ hour );
+		int day=Calendar.getInstance().get( Calendar.DAY_OF_YEAR);
+		int hour=Calendar.getInstance().get( Calendar.HOUR_OF_DAY);			
 
 		id++;
 		

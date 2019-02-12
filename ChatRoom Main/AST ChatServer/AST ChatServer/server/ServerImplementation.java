@@ -17,7 +17,7 @@ import chatroominterface.ServerInterface;
  *  Database updates, GUI update signals,  */
 public class ServerImplementation extends UnicastRemoteObject implements ServerInterface{
 	//In contrast to arrays, the size of a vector can mutate dynamically during run time when adding elements.
-	private Vector<ClientInterface> vector=new Vector<ClientInterface>();	//A vector that holds connected clients.
+	private Vector<ClientInterface> vector=new Vector<>();	//A vector that holds connected clients.
 	private ServerDatabase serverDatabase;
 	
 	public ServerImplementation(ServerDatabase serverDatabase) throws RemoteException{ //Do not remove this.
@@ -52,7 +52,7 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 		clientInterface.sendMessageToClient( "[System] You have disconnected successfully from the chatroom.");
 		
 		if (serverDatabase!=null)							//update only if database enabled.
-			updateLogsTable("connection",clientInterface);
+			updateLogsTable("disconnection",clientInterface);
 		
 		vector.remove( clientInterface); 					//Remove client from client list before publishing.
 		
@@ -107,7 +107,7 @@ public class ServerImplementation extends UnicastRemoteObject implements ServerI
 	 * @param clientInterface The user who performed this action. */
 	private void updateLogsTable(String action, ClientInterface clientInterface){
 		try{	//Update chatroom_logs table in database.
-			serverDatabase.updateLogsTable( "connection", getClientHost(), clientInterface.getName() );
+			serverDatabase.updateLogsTable( action, getClientHost(), clientInterface.getName() );
 		}catch( ServerNotActiveException | RemoteException exception){
 			exception.printStackTrace();
 		}
